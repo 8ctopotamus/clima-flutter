@@ -34,7 +34,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     dynamic key = await loadAsset();
     apiKey = jsonDecode(key)['OPENWEATHERMAP_API_KEY'];
 
-    NetworkHelper networkHelper = NetworkHelper('https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=imperial');
+    NetworkHelper networkHelper = NetworkHelper('https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric');
 
     var weatherData = await networkHelper.getData();
 
