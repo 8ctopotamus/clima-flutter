@@ -1,13 +1,26 @@
+import 'package:clima/services/location.dart';
+import 'package:clima/services/networking.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
-import 'package:clima/services/location.dart';
-import 'package:clima/services/networking.dart';
 
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
 
+Future<String> loadAsset() async {
+  return await rootBundle.loadString('secrets.json');
+}
+
 class WeatherModel {
   String apiKey;
+
+  Future<dynamic> getCityWeather(String cityName) async {
+    var key = await loadAsset();
+    apiKey = jsonDecode(key)['OPENWEATHERMAP_API_KEY'];
+    var url = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
+    NetworkHelper networkHelper = NetworkHelper(url);
+    var weatherData = await networkHelper.getData();
+    return weatherData;
+  }
 
   Future<dynamic> getLocationWeather() async {
     Location location = Location();
@@ -20,10 +33,6 @@ class WeatherModel {
 
     var weatherData = await networkHelper.getData();
     return weatherData;
-  }
-
-  Future<String> loadAsset() async {
-    return await rootBundle.loadString('secrets.json');
   }
 
   String getWeatherIcon(int condition) {
