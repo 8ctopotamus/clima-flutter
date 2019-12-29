@@ -3,6 +3,10 @@
 
 # Clima ☁
 
+## Setup
+1. Rename `secrets-sample.json` to `secrets.json`.
+2. Add your OpenWeatherMap API key to `secrets.json`.
+
 ## Our Goal
 
 The objective of this tutorial is to learn about asynchronous programming in Dart. We'll look at how to carry out time consuming tasks such as getting device location and networking to get data from the internet. 
